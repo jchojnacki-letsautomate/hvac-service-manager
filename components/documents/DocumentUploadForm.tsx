@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Textarea } from "../ui/textarea";
 import { Upload, X, FileText, ArrowLeft } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Switch } from "../ui/switch";
 
 export function DocumentUploadForm() {
@@ -17,7 +17,7 @@ export function DocumentUploadForm() {
   const [clientId, setClientId] = useState<string>("");
   const [useOcr, setUseOcr] = useState<boolean>(true);
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
 
   // Mock clients data
   const clients = [
@@ -64,14 +64,14 @@ export function DocumentUploadForm() {
     setTimeout(() => {
       setIsUploading(false);
       alert("Dokument został przesłany i jest przetwarzany.");
-      navigate("/dokumenty");
+      window.location.hash = "#/dokumenty";
     }, 1500);
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/dokumenty")}>
+        <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/dokumenty"}>
           <ArrowLeft className="size-4" />
         </Button>
         <h1>Dodaj nowy dokument</h1>
@@ -243,7 +243,7 @@ export function DocumentUploadForm() {
           <Button 
             variant="outline" 
             type="button" 
-            onClick={() => navigate("/dokumenty")}
+                          onClick={() => window.location.hash = "#/dokumenty"}
           >
             Anuluj
           </Button>

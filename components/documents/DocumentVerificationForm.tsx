@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Textarea } from "../ui/textarea";
 import { ArrowLeft, Check, X, FileText } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 interface OcrField {
@@ -19,7 +19,7 @@ interface OcrField {
 }
 
 export function DocumentVerificationForm() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   const [ocrData, setOcrData] = useState<OcrField[]>([
     { name: "documentNumber", label: "Numer dokumentu", value: "FV/2025/123", confidence: 0.95, isCorrect: true },
     { name: "issueDate", label: "Data wystawienia", value: "09.05.2025", confidence: 0.98, isCorrect: true },
@@ -49,7 +49,7 @@ export function DocumentVerificationForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Dokument został zweryfikowany i zapisany.");
-    navigate("/dokumenty");
+    window.location.hash = "#/dokumenty";
   };
 
   const getConfidenceColor = (confidence: number) => {
@@ -61,7 +61,7 @@ export function DocumentVerificationForm() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/dokumenty")}>
+        <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/dokumenty"}>
           <ArrowLeft className="size-4" />
         </Button>
         <h1>Weryfikacja danych dokumentu</h1>
@@ -210,7 +210,7 @@ export function DocumentVerificationForm() {
           <Button 
             variant="outline" 
             type="button" 
-            onClick={() => navigate("/dokumenty")}
+                          onClick={() => window.location.hash = "#/dokumenty"}
           >
             Anuluj
           </Button>

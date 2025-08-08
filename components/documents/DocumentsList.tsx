@@ -16,7 +16,7 @@ import { Badge } from "../ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { DocumentPreviewDialog } from "./DocumentPreviewDialog";
 import { DocumentLinkDialog } from "./DocumentLinkDialog";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -54,7 +54,7 @@ export function DocumentsList() {
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   
   // Przykładowe dane z powiązaniami
   const [documents, setDocuments] = useState<Document[]>([
@@ -278,7 +278,7 @@ export function DocumentsList() {
       client: doc.client
     }));
     
-    navigate("/zlecenia/nowe");
+    window.location.hash = "#/zlecenia/nowe";
   };
 
   const handleViewRelationship = (type: string, id: string, number: string) => {
@@ -313,7 +313,7 @@ export function DocumentsList() {
         
       case "serviceOrder":
         // Przejdź do szczegółów zlecenia serwisowego
-        navigate(`/zlecenia/${id}`);
+        window.location.hash = `#/zlecenia/${id}`;
         break;
         
       default:
@@ -327,7 +327,7 @@ export function DocumentsList() {
         <h1>Dokumenty OCR</h1>
         <Button 
           className="gap-2 bg-brand-blue hover:bg-brand-blue/90"
-          onClick={() => navigate("/dokumenty/dodaj")}
+          onClick={() => window.location.hash = "#/dokumenty/dodaj"}
         >
           <Upload className="size-4" />
           <span>Dodaj dokument</span>
@@ -455,7 +455,7 @@ export function DocumentsList() {
                                   size="icon"
                                   onClick={() => {
                                     if (doc.status === "error") {
-                                      navigate(`/dokumenty/weryfikacja/${doc.id}`);
+                                      window.location.hash = `#/dokumenty/weryfikacja/${doc.id}`;
                                     } else {
                                       setSelectedDocument(doc);
                                       setPreviewDialogOpen(true);
