@@ -13,7 +13,7 @@ import {
   MessageCircle, 
   Package, 
   ShoppingCart, 
-  ReceiptText, 
+  FileText, 
   Wallet,
   Plus,
   Trash2,
@@ -460,7 +460,7 @@ export function ServiceOrderDetail({ id, onBack = () => window.location.hash = "
                     <span>Usługi</span>
                   </TabsTrigger>
                   <TabsTrigger value="invoices" className="flex items-center gap-1 text-xs">
-                    <ReceiptText className="icon-balanced" />
+                    <FileText className="icon-balanced" />
                     <span>Faktury</span>
                   </TabsTrigger>
                 </TabsList>
@@ -664,7 +664,7 @@ export function ServiceOrderDetail({ id, onBack = () => window.location.hash = "
             </CardContent>
             <CardFooter>
               <Button className="w-full bg-brand-blue hover:bg-brand-blue/90">
-                <ReceiptText className="icon-balanced mr-2" />
+                <FileText className="icon-balanced mr-2" />
                 Generuj fakturę
               </Button>
             </CardFooter>

@@ -16,7 +16,7 @@ import {
   ChevronDown,
   ChevronsUpDown,
   PanelLeft,
-  ReceiptText,
+  FileText,
   TrendingUp,
   BarChart3,
   PieChart
@@ -404,7 +404,7 @@ export function InventoryHistory() {
                                       
                                       {selectedMovement.document && (
                                         <div className="flex items-center gap-3">
-                                          <ReceiptText className="icon-balanced text-muted-foreground" />
+                                          <FileText className="icon-balanced text-muted-foreground" />
                                           <div>
                                             <p className="text-sm text-muted-foreground">Dokument powiązany</p>
                                             <Button variant="link" className="p-0 h-auto">

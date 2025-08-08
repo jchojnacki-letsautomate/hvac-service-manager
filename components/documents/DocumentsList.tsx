@@ -10,7 +10,7 @@ import {
   Upload, Search, Filter, Eye, 
   FileText, FilePlus, Link as LinkIcon, Archive,
   Check, AlertTriangle, Clock, PlusCircle, Lock,
-  ClipboardList, Receipt, ReceiptText
+  ClipboardList, Receipt, FileText
 } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -157,7 +157,7 @@ export function DocumentsList() {
   const getRelationshipIcon = (type: string) => {
     switch (type) {
       case "invoice":
-        return <ReceiptText className="icon-balanced mr-1 text-brand-orange" />;
+        return <FileText className="icon-balanced mr-1 text-brand-orange" />;
       case "protocol":
         return <FileText className="icon-balanced mr-1 text-emerald-600" />;
       case "serviceOrder":
@@ -426,7 +426,7 @@ export function DocumentsList() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {doc.type === "invoice" ? (
-                            <ReceiptText className="size-4 text-brand-orange" />
+                            <FileText className="size-4 text-brand-orange" />
                           ) : (
                             <FileText className="size-4 text-emerald-600" />
                           )}

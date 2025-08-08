@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "../ui/badge";
-import { FileText, ClipboardList, ReceiptText, Link2 } from "lucide-react";
+import { FileText, ClipboardList, FileText, Link2 } from "lucide-react";
 import { cn } from "../ui/utils";
 
 export interface Relationship {
@@ -34,7 +34,7 @@ export function DocumentRelationships({
   const getRelationshipIcon = (type: string) => {
     switch (type) {
       case "invoice":
-        return <ReceiptText className="size-3.5 text-brand-orange" />;
+        return <FileText className="size-3.5 text-brand-orange" />;
       case "protocol":
         return <FileText className="size-3.5 text-emerald-600" />;
       case "serviceOrder":

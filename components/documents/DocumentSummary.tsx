@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { DocumentRelationships, Relationship } from "./DocumentRelationships";
-import { AlertTriangle, Check, Clock, Download, FileText, Lock, PlusCircle, Printer, ReceiptText, ClipboardList } from "lucide-react";
+import { AlertTriangle, Check, Clock, Download, FileText, Lock, PlusCircle, Printer, FileText, ClipboardList } from "lucide-react";
 import { Separator } from "../ui/separator";
 
 export interface DocumentSummaryProps {
@@ -71,7 +71,7 @@ export function DocumentSummary({
   const getDocumentTypeIcon = (type: string) => {
     switch (type) {
       case "invoice":
-        return <ReceiptText className="size-5 text-brand-orange" />;
+        return <FileText className="size-5 text-brand-orange" />;
       case "protocol":
         return <FileText className="size-5 text-emerald-600" />;
       default:
@@ -236,7 +236,7 @@ export function DocumentSummary({
                   
                   <div className="border rounded-lg p-3">
                     <h5 className="text-sm text-muted-foreground flex items-center gap-2 mb-2">
-                      <ReceiptText className="size-4 text-brand-orange" />
+                      <FileText className="size-4 text-brand-orange" />
                       <span>Faktury</span>
                     </h5>
                     {relationships.filter(r => r.type === "invoice").length > 0 ? (
