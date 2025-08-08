@@ -192,7 +192,7 @@ export function ServiceProtocolsList() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input 
                 placeholder="Szukaj protokołu..." 
-                className="pl-9" 
+                className="pl-9 rounded-full h-10" 
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
@@ -203,7 +203,7 @@ export function ServiceProtocolsList() {
                 value={statusFilter}
                 onValueChange={setStatusFilter}
               >
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[200px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>

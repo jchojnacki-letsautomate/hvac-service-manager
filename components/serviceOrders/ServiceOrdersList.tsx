@@ -221,14 +221,14 @@ export function ServiceOrdersList({
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input 
                 placeholder="Szukaj zlecenia..." 
-                className="pl-9" 
+                className="pl-9 rounded-full h-10" 
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex gap-3">
               <Select defaultValue="all">
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[180px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -242,7 +242,7 @@ export function ServiceOrdersList({
               </Select>
               
               <Select defaultValue="all">
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[200px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Rodzaj usługi" />
                 </SelectTrigger>
                 <SelectContent>
@@ -261,13 +261,13 @@ export function ServiceOrdersList({
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry zleceń")}
-                className="text-brand-blue border-brand-blue"
+                className="text-brand-blue border-brand-blue rounded-full h-10 w-10"
               >
                 <Filter className="size-4" />
               </Button>
               <Button 
                 variant="outline"
-                className="text-brand-blue border-brand-blue"
+                className="text-brand-blue border-brand-blue rounded-full px-5 h-10"
                 onClick={() => exportToCsv(filteredOrders)}
               >
                 Eksport CSV

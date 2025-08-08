@@ -167,14 +167,14 @@ export function ClientsList() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input 
                 placeholder="Szukaj klienta..." 
-                className="pl-9" 
+                className="pl-9 rounded-full h-10" 
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex gap-3">
               <Select defaultValue="all">
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[200px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Typ klienta" />
                 </SelectTrigger>
                 <SelectContent>
