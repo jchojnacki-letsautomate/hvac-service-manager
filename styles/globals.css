@@ -17,15 +17,15 @@
   --primary-foreground: #ffffff;
   --secondary: #ff8c00;
   --secondary-foreground: #ffffff;
-  --muted: #ececf0;
+  --muted: #f5f6fa; /* zbliżone do tła list w Figma */
   --muted-foreground: #717182;
   --accent: #ff8c00;
   --accent-foreground: #ffffff;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: #e6e8f0; /* delikatniejsza siatka */
   --input: transparent;
-  --input-background: #f3f3f5;
+  --input-background: #f6f7fb; /* jaśniejsze pole wyszukiwania */
   --switch-background: #cbced4;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
