@@ -40,8 +40,9 @@
   --sidebar-foreground: #ffffff;
   --sidebar-primary: #ff8c00;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(255, 140, 0, 0.1);
-  --sidebar-accent-foreground: #ff8c00;
+  /* Subtelny hover w panelu (jasny akcent, bez pomarańczowej poświaty) */
+  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: #ff8c00;
   --sidebar-width: 14rem;        /* 224px - pełna szerokość */
@@ -274,9 +275,12 @@ html {
 
 /* Sidebar specific styles */
 .sidebar-item-active {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
+  /* Aktywna pozycja: ciemny niebieski kafelek + pomarańczowy tekst */
+  background-color: #232a44;
+  color: var(--sidebar-primary);
   font-weight: var(--font-weight-medium);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-fixed {

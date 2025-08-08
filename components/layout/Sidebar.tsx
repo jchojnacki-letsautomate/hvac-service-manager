@@ -185,7 +185,7 @@ export function Sidebar({
                   className={`flex items-center px-3 py-2.5 rounded-md transition-colors ${
                     isActive(item.path)
                       ? "sidebar-item-active"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent"
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
@@ -240,7 +240,7 @@ export function Sidebar({
                 className={`flex items-center px-3 py-2.5 rounded-md transition-colors ${
                   isActive(item.path)
                     ? "sidebar-item-active"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent/50"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent"
                 } ${isCollapsed ? "justify-center" : ""}`}
                 title={isCollapsed ? item.name : ""}
                 onClick={(e) => {

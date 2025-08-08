@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { 
   Table, TableBody, TableCell, TableHead, 
@@ -178,11 +178,37 @@ export function ServiceOrdersList({
     }
   };
 
-  const filteredOrders = serviceOrders.filter(order => 
-    order.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    order.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    order.serviceType.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const [statusFilter, setStatusFilter] = useState<string>(() => localStorage.getItem("ordersStatusFilter") || "all");
+  const [typeFilter, setTypeFilter] = useState<string>(() => localStorage.getItem("ordersTypeFilter") || "all");
+  const [search, setSearch] = useState<string>(() => localStorage.getItem("ordersSearch") || "");
+
+  useEffect(() => {
+    localStorage.setItem("ordersStatusFilter", statusFilter);
+  }, [statusFilter]);
+  useEffect(() => {
+    localStorage.setItem("ordersTypeFilter", typeFilter);
+  }, [typeFilter]);
+  useEffect(() => {
+    localStorage.setItem("ordersSearch", search);
+  }, [search]);
+
+  const filteredOrders = serviceOrders.filter(order => {
+    const matchesSearch =
+      order.client.toLowerCase().includes(search.toLowerCase()) ||
+      order.number.toLowerCase().includes(search.toLowerCase()) ||
+      order.serviceType.toLowerCase().includes(search.toLowerCase());
+
+    const matchesStatus = statusFilter === "all" || order.status === statusFilter as any;
+    const matchesType = typeFilter === "all" || order.serviceType.toLowerCase() ===
+      (typeFilter === "maintenance" ? "przegląd" :
+       typeFilter === "repair" ? "naprawa" :
+       typeFilter === "installation" ? "montaż" :
+       typeFilter === "diagnosis" ? "diagnostyka" :
+       typeFilter === "order" ? "zamówienie" :
+       typeFilter === "warranty" ? "gwarancja" : typeFilter);
+
+    return matchesSearch && matchesStatus && matchesType;
+  });
   
   const handleCancelOrder = () => {
     alert(`Zlecenie ${selectedOrder?.number} zostało anulowane`);
@@ -222,12 +248,12 @@ export function ServiceOrdersList({
               <Input 
                 placeholder="Szukaj zlecenia..." 
                 className="pl-9 rounded-full h-10" 
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                value={search}
+                onChange={e => setSearch(e.target.value)}
               />
             </div>
             <div className="flex gap-3">
-              <Select defaultValue="all">
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-[180px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -241,7 +267,7 @@ export function ServiceOrdersList({
                 </SelectContent>
               </Select>
               
-              <Select defaultValue="all">
+              <Select value={typeFilter} onValueChange={setTypeFilter}>
                 <SelectTrigger className="w-[200px] h-10 rounded-full px-4">
                   <SelectValue placeholder="Rodzaj usługi" />
                 </SelectTrigger>
@@ -277,7 +303,7 @@ export function ServiceOrdersList({
 
           <div className="rounded-md border">
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-0 bg-white z-10">
                 <TableRow>
                   <TableHead>Status</TableHead>
                   <TableHead>Numer</TableHead>
@@ -290,8 +316,11 @@ export function ServiceOrdersList({
               <TableBody>
                 {filteredOrders.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center">
-                      Brak zleceń spełniających kryteria wyszukiwania
+                    <TableCell colSpan={6} className="text-center py-10">
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="text-muted-foreground">Brak wyników</span>
+                        <Button onClick={onCreate} className="gap-2"><Plus className="size-4"/>Dodaj zlecenie</Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ) : (
