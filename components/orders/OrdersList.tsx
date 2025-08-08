@@ -53,8 +53,8 @@ interface OrdersListProps {
 }
 
 export function OrdersList({ 
-  onSelect = (id) => window.location.hash = `zamowienia/${id}`,
-  onCreate = () => window.location.hash = "zamowienia/nowe",
+  onSelect = (id) => window.location.hash = `#/zamowienia/${id}`,
+  onCreate = () => window.location.hash = "#/zamowienia/nowe",
   orders: providedOrders
 }: OrdersListProps) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -157,7 +157,7 @@ export function OrdersList({
         </div>
         
         <Button 
-          className="gap-2 bg-brand-blue hover:bg-brand-blue/90"
+          className="gap-2 bg-brand-blue text-white hover:bg-brand-blue/90"
           onClick={onCreate}
         >
           <Plus className="size-4" />
