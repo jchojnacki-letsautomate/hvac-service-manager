@@ -12,7 +12,7 @@ import {
   Share2, CheckCircle, XCircle, Clock, FileSignature,
   Camera, Edit, Trash2, ExternalLink
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Label } from "../ui/label";
 import { 
   Table, TableBody, TableCell, TableHead, 
@@ -43,9 +43,14 @@ interface ProtocolAttachment {
   uploadedAt: string;
 }
 
-export function ServiceProtocolDetail() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface ServiceProtocolDetailProps {
+  protocolId?: string;
+}
+
+export function ServiceProtocolDetail({ protocolId }: ServiceProtocolDetailProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = protocolId;
   
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showImageDialog, setShowImageDialog] = useState(false);
@@ -207,7 +212,7 @@ export function ServiceProtocolDetail() {
   const handleDelete = () => {
     alert(`Protokół ${protocolData.number} został usunięty`);
     setShowDeleteDialog(false);
-    navigate("/protokoly");
+    window.location.hash = "#/protokoly";
   };
   
   const handleAttachmentClick = (attachment: ProtocolAttachment) => {
@@ -227,7 +232,7 @@ export function ServiceProtocolDetail() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/protokoly")}>
+                      <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/protokoly"}>
             <ArrowLeft className="size-4" />
           </Button>
           <h1 className="m-0">Protokół {protocolData.number}</h1>
@@ -268,7 +273,7 @@ export function ServiceProtocolDetail() {
           <Button 
             variant="outline" 
             className="gap-2"
-            onClick={() => navigate(`/protokoly/${id}/edytuj`)}
+                            onClick={() => window.location.hash = `#/protokoly/${id}/edytuj`}
           >
             <Edit className="size-4" />
             <span>Edytuj</span>
@@ -317,7 +322,7 @@ export function ServiceProtocolDetail() {
                   <Button 
                     variant="link" 
                     className="px-0 h-auto"
-                    onClick={() => navigate(`/zlecenia/${protocolData.serviceOrderId}`)}
+                    onClick={() => window.location.hash = `#/zlecenia/${protocolData.serviceOrderId}`}
                   >
                     {protocolData.serviceOrderNumber}
                     <ExternalLink className="size-3 ml-1" />

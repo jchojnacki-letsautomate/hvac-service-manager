@@ -15,7 +15,7 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { 
   Select, SelectContent, SelectItem, 
   SelectTrigger, SelectValue 
@@ -58,9 +58,14 @@ interface ComponentReplacement {
   isOriginal: boolean;
 }
 
-export function ServiceProtocolForm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface ServiceProtocolFormProps {
+  protocolId?: string;
+}
+
+export function ServiceProtocolForm({ protocolId }: ServiceProtocolFormProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = protocolId;
   const isEditMode = id !== undefined && id !== "nowy";
   
   const [protocolData, setProtocolData] = useState({
@@ -190,12 +195,12 @@ export function ServiceProtocolForm() {
 
   const handleSaveAsDraft = () => {
     alert("Protokół został zapisany jako wersja robocza");
-    navigate("/protokoly");
+    window.location.hash = "#/protokoly";
   };
 
   const handleSubmitForSignature = () => {
     alert("Protokół został zapisany i przygotowany do podpisu klienta");
-    navigate("/protokoly");
+    window.location.hash = "#/protokoly";
   };
 
   const handleAddPhoto = () => {
@@ -254,7 +259,7 @@ export function ServiceProtocolForm() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/protokoly")}>
+          <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/protokoly"}>
             <ArrowLeft className="size-4" />
           </Button>
           <h1 className="m-0">{isEditMode ? `Edycja protokołu ${protocolData.number}` : "Nowy protokół"}</h1>

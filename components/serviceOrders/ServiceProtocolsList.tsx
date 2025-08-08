@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { 
   Dialog,
   DialogContent,
@@ -45,7 +45,7 @@ export function ServiceProtocolsList() {
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [selectedProtocol, setSelectedProtocol] = useState<ServiceProtocol | null>(null);
   const [statusFilter, setStatusFilter] = useState("all");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   
   // Przykładowe dane
   const serviceProtocols: ServiceProtocol[] = [
@@ -161,7 +161,7 @@ export function ServiceProtocolsList() {
         <h1>Protokoły serwisowe</h1>
         <Button 
           className="gap-2 bg-brand-blue hover:bg-brand-blue/90"
-          onClick={() => navigate("/protokoly/nowy")}
+                      onClick={() => window.location.hash = "#/protokoly/nowy"}
         >
           <Plus className="size-4" />
           <span>Nowy protokół</span>
@@ -253,7 +253,7 @@ export function ServiceProtocolsList() {
                         <Button 
                           variant="link" 
                           className="px-0 h-auto"
-                          onClick={() => navigate(`/zlecenia/${protocol.serviceOrderId}`)}
+                          onClick={() => window.location.hash = `#/zlecenia/${protocol.serviceOrderId}`}
                         >
                           {protocol.serviceOrderNumber}
                         </Button>
@@ -281,7 +281,7 @@ export function ServiceProtocolsList() {
                           <Button 
                             variant="ghost" 
                             size="icon"
-                            onClick={() => navigate(`/protokoly/${protocol.id}`)}
+                            onClick={() => window.location.hash = `#/protokoly/${protocol.id}`}
                           >
                             <ArrowRight className="size-4" />
                           </Button>
@@ -343,7 +343,7 @@ export function ServiceProtocolsList() {
                       className="px-0 h-auto"
                       onClick={() => {
                         setShowDetailsDialog(false);
-                        navigate(`/zlecenia/${selectedProtocol.serviceOrderId}`);
+                        window.location.hash = `#/zlecenia/${selectedProtocol.serviceOrderId}`;
                       }}
                     >
                       {selectedProtocol.serviceOrderNumber}
@@ -437,7 +437,7 @@ export function ServiceProtocolsList() {
               <Button 
                 onClick={() => {
                   setShowDetailsDialog(false);
-                  navigate(`/protokoly/${selectedProtocol.id}`);
+                  window.location.hash = `#/protokoly/${selectedProtocol.id}`;
                 }}
                 className="bg-brand-blue hover:bg-brand-blue/90"
               >
