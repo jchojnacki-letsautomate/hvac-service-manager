@@ -7,7 +7,7 @@ import {
   FileText, Settings, Clock, CheckCircle2, AlertTriangle, 
   Plus, Pencil, Trash2, Check, X, Star, StarOff, Save
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
@@ -18,7 +18,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 
 interface Contact {
@@ -39,9 +39,14 @@ interface Address {
   isPrimary: boolean;
 }
 
-export function ClientProfile() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface ClientProfileProps {
+  clientId?: string;
+}
+
+export function ClientProfile({ clientId }: ClientProfileProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = clientId;
 
   // State for inline edit mode
   const [isProfileEditMode, setIsProfileEditMode] = useState(false);
@@ -384,7 +389,7 @@ export function ClientProfile() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/klienci")}>
+                      <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/klienci"}>
             <ArrowLeft className="size-4" />
           </Button>
           <h1>
@@ -579,7 +584,7 @@ export function ClientProfile() {
                   <Button 
                     variant="default" 
                     className="gap-2 bg-brand-blue hover:bg-brand-blue/90 w-full"
-                    onClick={() => navigate("/zlecenia/nowe")}
+                    onClick={() => window.location.hash = "#/zlecenia/nowe"}
                   >
                     <ClipboardList className="size-4" />
                     <span>Utwórz zlecenie</span>
@@ -767,7 +772,7 @@ export function ClientProfile() {
               <CardTitle>Urządzenia klienta</CardTitle>
               <Button 
                 className="gap-2"
-                onClick={() => navigate("/urzadzenia/nowe")}
+                onClick={() => window.location.hash = "#/urzadzenia/nowe"}
               >
                 Dodaj urządzenie
               </Button>
@@ -794,7 +799,7 @@ export function ClientProfile() {
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          onClick={() => navigate(`/urzadzenia/${equipment.id}`)}
+                          onClick={() => window.location.hash = `#/urzadzenia/${equipment.id}`}
                         >
                           Szczegóły
                         </Button>
@@ -813,7 +818,7 @@ export function ClientProfile() {
                 <Button 
                   variant="outline"
                   size="sm"
-                  onClick={() => navigate("/zlecenia/nowe")}
+                  onClick={() => window.location.hash = "#/zlecenia/nowe"}
                 >
                   Utwórz zlecenie
                 </Button>
@@ -838,7 +843,7 @@ export function ClientProfile() {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => navigate(`/zlecenia/${order.id}`)}
+                            onClick={() => window.location.hash = `#/zlecenia/${order.id}`}
                           >
                             Szczegóły
                           </Button>
@@ -856,7 +861,7 @@ export function ClientProfile() {
                 <Button 
                   variant="outline"
                   size="sm"
-                  onClick={() => navigate("/dokumenty/dodaj")}
+                  onClick={() => window.location.hash = "#/dokumenty/dodaj"}
                 >
                   Dodaj dokument
                 </Button>
@@ -885,7 +890,7 @@ export function ClientProfile() {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => navigate(`/dokumenty/${document.id}`)}
+                            onClick={() => window.location.hash = `#/dokumenty/${document.id}`}
                           >
                             Podgląd
                           </Button>

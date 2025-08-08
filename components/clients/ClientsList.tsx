@@ -12,7 +12,7 @@ import {
   Building2, Phone, Mail, MapPin, FileText
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Badge } from "../ui/badge";
 
 interface Client {
@@ -30,7 +30,7 @@ interface Client {
 
 export function ClientsList() {
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   
   // Przykładowe dane
   const clients: Client[] = [
@@ -136,7 +136,7 @@ export function ClientsList() {
         <h1>Klienci</h1>
         <Button 
           className="gap-2"
-          onClick={() => navigate("/klienci/nowy")}
+                      onClick={() => window.location.hash = "#/klienci/nowy"}
         >
           <Plus className="size-4" />
           <span>Dodaj klienta</span>
@@ -204,7 +204,7 @@ export function ClientsList() {
                     <TableRow 
                       key={client.id} 
                       className="cursor-pointer hover:bg-muted/50" 
-                      onClick={() => navigate(`/klienci/${client.id}`)}
+                      onClick={() => window.location.hash = `#/klienci/${client.id}`}
                     >
                       <TableCell>
                         <div className="flex items-center gap-2">

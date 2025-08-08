@@ -3,12 +3,24 @@ import React, { useState, useEffect } from "react";
 import "./styles/globals.css";
 import { Toaster } from "sonner";
 import { Sidebar } from "./components/layout/Sidebar";
+import { Dashboard } from "./components/dashboard/Dashboard";
 import { OrdersList } from "./components/orders/OrdersList";
 import { OrderDetail } from "./components/orders/OrderDetail";
 import { ServiceOrdersList } from "./components/serviceOrders/ServiceOrdersList";
 import { ServiceOrderDetail } from "./components/serviceOrders/ServiceOrderDetail";
+import { ServiceProtocolsList } from "./components/serviceOrders/ServiceProtocolsList";
+import { ServiceProtocolDetail } from "./components/serviceOrders/ServiceProtocolDetail";
+import { ClientsList } from "./components/clients/ClientsList";
+import { ClientProfile } from "./components/clients/ClientProfile";
+import { EquipmentList } from "./components/equipment/EquipmentList";
+import { EquipmentProfile } from "./components/equipment/EquipmentProfile";
+import { DocumentsList } from "./components/documents/DocumentsList";
+import { InventoryList } from "./components/inventory/InventoryList";
+import { InventoryDetail } from "./components/inventory/InventoryDetail";
 import { ConversationsList } from "./components/conversations/ConversationsList";
 import { ConversationDetails } from "./components/conversations/ConversationDetails";
+import { ReportsOverview } from "./components/reports/ReportsOverview";
+import { SettingsPage } from "./components/settings/SettingsPage";
 
 // Kompletna aplikacja HVAC Service Manager
 // Wersja: 1.0.0
@@ -73,6 +85,20 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 export default function App() {
+  // Mock data for demonstration
+  const mockData = {
+    serviceOrders: [
+      { id: "1", number: "2025/01/001", client: "Hotel Metropol", status: "W realizacji", date: "2025-01-15", technician: "Jan Kowalski" },
+      { id: "2", number: "2025/01/002", client: "Biurowiec Gamma", status: "Nowe", date: "2025-01-16", technician: "Piotr Nowak" },
+      { id: "3", number: "2025/01/003", client: "Centrum Handlowe", status: "Zakończone", date: "2025-01-14", technician: "Anna Wiśniewska" }
+    ],
+    clients: [
+      { id: "1", name: "Hotel Metropol", email: "kontakt@hotelmetropol.pl", phone: "+48 123 456 789" },
+      { id: "2", name: "Biurowiec Gamma", email: "biuro@biurowiecgamma.pl", phone: "+48 987 654 321" },
+      { id: "3", name: "Centrum Handlowe", email: "info@centrumhandlowe.pl", phone: "+48 555 666 777" }
+    ]
+  };
+
   // State to track current route
   const [currentRoute, setCurrentRoute] = useState(() => {
     // Get initial route from window.location.hash
@@ -144,7 +170,10 @@ export default function App() {
     
     switch (baseRoute) {
       case "/":
-        return <ServiceOrdersList />;
+        return <Dashboard />;
+      
+      case "/dashboard":
+        return <Dashboard />;
       
       case "/zlecenia":
         if (routeParams.id) {
@@ -158,6 +187,33 @@ export default function App() {
         }
         return <OrdersList />;
       
+      case "/klienci":
+        if (routeParams.id) {
+          return <ClientProfile clientId={routeParams.id} />;
+        }
+        return <ClientsList />;
+      
+      case "/urzadzenia":
+        if (routeParams.id) {
+          return <EquipmentProfile equipmentId={routeParams.id} />;
+        }
+        return <EquipmentList />;
+      
+      case "/dokumenty":
+        return <DocumentsList />;
+      
+      case "/magazyn":
+        if (routeParams.id) {
+          return <InventoryDetail inventoryId={routeParams.id} />;
+        }
+        return <InventoryList />;
+      
+      case "/protokoly":
+        if (routeParams.id) {
+          return <ServiceProtocolDetail protocolId={routeParams.id} />;
+        }
+        return <ServiceProtocolsList />;
+      
       case "/konwersacje":
         if (routeParams.id) {
           return <ConversationDetails conversationId={routeParams.id} />;
@@ -167,19 +223,25 @@ export default function App() {
         }
         return <ConversationsList />;
       
+      case "/raporty":
+        return <ReportsOverview />;
+      
+      case "/ustawienia":
+        return <SettingsPage />;
+      
       default:
-        return <ServiceOrdersList />;
+        return <Dashboard />;
     }
   };
 
   // Calculate dynamic classes for main content
   const mainContentClasses = `flex-1 overflow-auto transition-all duration-300 ease-in-out ${
     isSidebarCollapsed ? 'md:ml-16' : 'md:ml-56'
-  } p-4 md:p-6`;
+  } p-4 md:p-6 min-h-screen`;
 
   return (
     <ErrorBoundary>
-      <div className="flex h-screen bg-background overflow-hidden">
+      <div className="flex h-screen bg-background overflow-hidden w-full">
         <Sidebar 
           isCollapsed={isSidebarCollapsed}
           setIsCollapsed={setIsSidebarCollapsed}

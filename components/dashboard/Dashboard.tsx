@@ -155,18 +155,18 @@ export function Dashboard() {
                       // Obsługa różnych akcji w zależności od tytułu
                       switch(action.title) {
                         case "Dodaj zlecenie":
-                          window.location.href = "/zlecenia/nowe";
+                          window.location.hash = "#/zlecenia/nowe";
                           break;
                         case "Prześlij dokument":
-                          window.location.href = "/dokumenty";
+                          window.location.hash = "#/dokumenty";
                           alert("Otworzono okno dodawania dokumentu");
                           break;
                         case "Wystaw fakturę":
-                          window.location.href = "/rozliczenia";
+                          window.location.hash = "#/rozliczenia";
                           alert("Rozpoczęto proces wystawiania faktury");
                           break;
                         case "Dodaj klienta":
-                          window.location.href = "/klienci";
+                          window.location.hash = "#/klienci";
                           alert("Otworzono formularz dodawania klienta");
                           break;
                         default:

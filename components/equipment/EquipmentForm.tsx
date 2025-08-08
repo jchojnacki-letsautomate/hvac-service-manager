@@ -16,7 +16,7 @@ import { pl } from "date-fns/locale";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { Calendar as CalendarComponent } from "../ui/calendar";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 interface EquipmentAttribute {
   id: string;
