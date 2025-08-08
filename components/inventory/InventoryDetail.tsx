@@ -16,7 +16,7 @@ import {
   MessageCircle,
   ShoppingCart
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Badge } from "../ui/badge";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { Separator } from "../ui/separator";
@@ -48,9 +48,14 @@ interface InventoryReservation {
   status: "active" | "completed" | "cancelled";
 }
 
-export function InventoryDetail() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface InventoryDetailProps {
+  inventoryId?: string;
+}
+
+export function InventoryDetail({ inventoryId }: InventoryDetailProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = inventoryId;
   const [showStockDialog, setShowStockDialog] = useState(false);
   const [showReservationDialog, setShowReservationDialog] = useState(false);
   const [stockAction, setStockAction] = useState<"in" | "out">("in");
@@ -146,7 +151,7 @@ export function InventoryDetail() {
         <div className="text-center">
           <h2>Produkt nie znaleziony</h2>
           <p className="text-muted-foreground mb-4">Nie znaleziono produktu o ID: {id}</p>
-          <Button onClick={() => navigate("/magazyn")}>
+                      <Button onClick={() => window.location.hash = "#/magazyn"}>
             Powrót do magazynu
           </Button>
         </div>
@@ -162,7 +167,7 @@ export function InventoryDetail() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/magazyn")}>
+                    <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/magazyn"}>
           <ArrowLeft className="icon-balanced" />
         </Button>
         <h1>{productDetails.name}</h1>
@@ -170,7 +175,7 @@ export function InventoryDetail() {
           <Button 
             variant="outline" 
             className="gap-2"
-            onClick={() => navigate(`/magazyn/historia?productId=${id}`)}
+                            onClick={() => window.location.hash = `#/magazyn/historia?productId=${id}`}
           >
             <Calendar className="icon-balanced" />
             <span className="hidden sm:inline">Historia</span>
@@ -178,14 +183,14 @@ export function InventoryDetail() {
           <Button 
             variant="outline" 
             className="gap-2"
-            onClick={() => navigate(`/konwersacje?productId=${id}`)}
+                            onClick={() => window.location.hash = `#/konwersacje?productId=${id}`}
           >
             <MessageCircle className="icon-balanced" />
             <span className="hidden sm:inline">Konwersacje</span>
           </Button>
           <Button 
             className="gap-2 bg-brand-blue hover:bg-brand-blue/90"
-            onClick={() => navigate(`/magazyn/edytuj/${id}`)}
+                            onClick={() => window.location.hash = `#/magazyn/edytuj/${id}`}
           >
             <Edit className="icon-balanced" />
             <span className="hidden sm:inline">Edytuj</span>
@@ -333,19 +338,19 @@ export function InventoryDetail() {
                   <div className="mt-2 space-y-2">
                     <div className="flex items-center justify-between p-2 bg-muted/30 rounded">
                       <span>Klimatyzator ścienny Daikin FTXM35R</span>
-                      <Button variant="ghost" size="sm" onClick={() => navigate(`/urzadzenia/1`)}>
+                      <Button variant="ghost" size="sm" onClick={() => window.location.hash = `#/urzadzenia/1`}>
                         Podgląd
                       </Button>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-muted/30 rounded">
                       <span>Klimatyzator ścienny Daikin FTXM20R</span>
-                      <Button variant="ghost" size="sm" onClick={() => navigate(`/urzadzenia/6`)}>
+                      <Button variant="ghost" size="sm" onClick={() => window.location.hash = `#/urzadzenia/6`}>
                         Podgląd
                       </Button>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-muted/30 rounded">
                       <span>Klimatyzator ścienny Daikin FTXM50R</span>
-                      <Button variant="ghost" size="sm" onClick={() => navigate(`/urzadzenia/7`)}>
+                      <Button variant="ghost" size="sm" onClick={() => window.location.hash = `#/urzadzenia/7`}>
                         Podgląd
                       </Button>
                     </div>
@@ -395,7 +400,7 @@ export function InventoryDetail() {
                     variant="outline" 
                     size="sm" 
                     className="gap-2"
-                    onClick={() => navigate(`/magazyn/historia?productId=${id}`)}
+                    onClick={() => window.location.hash = `#/magazyn/historia?productId=${id}`}
                   >
                     <FileText className="icon-balanced" />
                     <span>Pełna historia</span>

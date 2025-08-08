@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// import { useParams, useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { 
   Card, 
   CardContent, 
@@ -87,9 +87,9 @@ interface Quote {
 }
 
 export function OrderDetail({ id: propId }: OrderDetailProps) {
-  const { id: paramId } = useParams();
-  const id = propId || paramId;
-  const navigate = useNavigate();
+  // const { id: paramId } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = propId;
   
   const [orderStatus, setOrderStatus] = useState<OrderStatus>("waitingForOffers");
   const [showUpdateStatusDialog, setShowUpdateStatusDialog] = useState(false);
@@ -196,7 +196,7 @@ export function OrderDetail({ id: propId }: OrderDetailProps) {
       {/* Header with navigation and title */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/zamowienia")}>
+                      <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/zamowienia"}>
             <ArrowLeft className="icon-balanced" />
           </Button>
           <div>
@@ -214,13 +214,15 @@ export function OrderDetail({ id: propId }: OrderDetailProps) {
           <div className="flex gap-2">
             <Button
               variant="outline"
-              onClick={() => navigate("/konwersacje/nowa", { 
-                state: { 
+                              onClick={() => {
+                window.location.hash = "#/konwersacje/nowa";
+                // W rzeczywistej aplikacji przekazalibyśmy dane przez sessionStorage
+                sessionStorage.setItem('conversationData', JSON.stringify({
                   relatedEntityType: "order", 
                   relatedEntityId: order.id, 
                   relatedEntityName: `Zamówienie ${order.number}: ${order.description}` 
-                } 
-              })}
+                }));
+              }}
               className="gap-1"
             >
               <MessageSquare className="icon-balanced" />

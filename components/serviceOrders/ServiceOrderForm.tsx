@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// import { useParams, useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -62,9 +62,15 @@ interface Equipment {
   lastService?: string;
 }
 
-export function ServiceOrderForm({ isNew = false }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface ServiceOrderFormProps {
+  orderId?: string;
+  isNew?: boolean;
+}
+
+export function ServiceOrderForm({ orderId, isNew = false }: ServiceOrderFormProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = orderId;
   const [date, setDate] = useState<Date>(new Date());
   const [plannedDate, setPlannedDate] = useState<Date>(new Date());
   const [clientId, setClientId] = useState("");
@@ -228,7 +234,7 @@ export function ServiceOrderForm({ isNew = false }) {
       alert("Nowe zlecenie zostało utworzone");
     }
     
-    navigate("/zlecenia");
+    window.location.hash = "#/zlecenia";
   };
 
   return (
@@ -236,7 +242,7 @@ export function ServiceOrderForm({ isNew = false }) {
       {/* Header with navigation and title */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/zlecenia")}>
+          <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/zlecenia"}>
             <ArrowLeft className="icon-balanced" />
           </Button>
           <h1 className="mb-0">{isEditMode ? "Edytuj zlecenie" : "Nowe zlecenie serwisowe"}</h1>
@@ -247,7 +253,7 @@ export function ServiceOrderForm({ isNew = false }) {
           )}
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => navigate("/zlecenia")} type="button">
+                      <Button variant="outline" onClick={() => window.location.hash = "#/zlecenia"} type="button">
             Anuluj
           </Button>
           <Button className="bg-brand-blue hover:bg-brand-blue/90" onClick={handleSubmit}>

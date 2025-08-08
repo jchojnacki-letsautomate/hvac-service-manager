@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ArrowLeft, Plus, Trash2, MapPin, User, Building, FileText, Phone, Mail, Info } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Separator } from "../ui/separator";
@@ -28,9 +28,14 @@ interface Address {
   isPrimary: boolean;
 }
 
-export function ClientForm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface ClientFormProps {
+  clientId?: string;
+}
+
+export function ClientForm({ clientId }: ClientFormProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = clientId;
   const [clientType, setClientType] = useState("business");
   const [vatStatus, setVatStatus] = useState("active");
   const [companyName, setCompanyName] = useState(id ? "Hotel Metropol" : "");
@@ -134,13 +139,13 @@ export function ClientForm() {
     } else {
       alert(`Nowy klient "${companyName}" został utworzony`);
     }
-    navigate("/klienci");
+          window.location.hash = "#/klienci";
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/klienci")}>
+        <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/klienci"}>
           <ArrowLeft className="size-4" />
         </Button>
         <h1>{id ? "Edytuj klienta" : "Nowy klient"}</h1>
@@ -555,7 +560,7 @@ export function ClientForm() {
             <Button 
               variant="outline" 
               type="button" 
-              onClick={() => navigate("/klienci")}
+              onClick={() => window.location.hash = "#/klienci"}
             >
               Anuluj
             </Button>

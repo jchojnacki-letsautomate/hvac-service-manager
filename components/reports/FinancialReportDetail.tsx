@@ -36,13 +36,13 @@ import {
   Line,
   Legend
 } from "recharts";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 
 export function FinancialReportDetail() {
   const [period, setPeriod] = useState("currentMonth");
   const [compareWith, setCompareWith] = useState("previousPeriod");
   const [reportType, setReportType] = useState("revenue");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
 
   // Dane przykładowe dla raportu przychodów
   const revenueData = [
@@ -112,7 +112,7 @@ export function FinancialReportDetail() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/raporty")}>
+                      <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/raporty"}>
             <ArrowLeft className="size-4" />
           </Button>
           <h1>Raport finansowy</h1>

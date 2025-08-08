@@ -45,14 +45,14 @@ import {
   PolarRadiusAxis,
   Radar
 } from "recharts";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function ServicePerformanceReport() {
   const [period, setPeriod] = useState("lastMonth");
   const [technicianFilter, setTechnicianFilter] = useState("all");
   const [serviceTypeFilter, setServiceTypeFilter] = useState("all");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
 
   // Przykładowe dane dla techników
   const technicians = [
@@ -193,7 +193,7 @@ export function ServicePerformanceReport() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => navigate("/raporty")}>
+                      <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/raporty"}>
             <ArrowLeft className="size-4" />
           </Button>
           <h1>Raport wydajności serwisu</h1>

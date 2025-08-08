@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ArrowLeft, Save, Package, Trash2, Upload } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Separator } from "../ui/separator";
@@ -17,8 +17,9 @@ interface InventoryFormProps {
 }
 
 export function InventoryForm({ isNew = false }: InventoryFormProps) {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = "";
   const [productName, setProductName] = useState("");
   const [partNumber, setPartNumber] = useState("");
   const [category, setCategory] = useState("");
@@ -63,18 +64,18 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
 
     // W rzeczywistej aplikacji tutaj byłoby zapisywanie do API
     alert(`Produkt ${isNew ? "dodany" : "zaktualizowany"} pomyślnie`);
-    navigate("/magazyn");
+    window.location.hash = "#/magazyn";
   };
 
   const handleDelete = () => {
     alert(`Produkt "${productName}" został usunięty z magazynu`);
-    navigate("/magazyn");
+    window.location.hash = "#/magazyn";
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/magazyn")}>
+        <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/magazyn"}>
           <ArrowLeft className="icon-balanced" />
         </Button>
         <h1>{isNew ? "Nowy produkt w magazynie" : `Edycja produktu: ${productName}`}</h1>
@@ -249,7 +250,7 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
             </Card>
 
             <div className="flex justify-end gap-2">
-              <Button variant="outline" type="button" onClick={() => navigate("/magazyn")}>
+              <Button variant="outline" type="button" onClick={() => window.location.hash = "#/magazyn"}>
                 Anuluj
               </Button>
               <Button type="submit" className="gap-2 bg-brand-blue hover:bg-brand-blue/90">

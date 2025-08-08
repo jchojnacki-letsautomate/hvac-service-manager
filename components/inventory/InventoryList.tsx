@@ -14,7 +14,7 @@ import {
   MessageCircle
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Badge } from "../ui/badge";
 import { 
   AlertDialog,
@@ -52,7 +52,7 @@ export function InventoryList() {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [stockQuantity, setStockQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("all");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   
   // Przykładowe dane
   const inventoryItems: InventoryItem[] = [
@@ -201,7 +201,7 @@ export function InventoryList() {
         <div className="flex gap-2">
           <Button 
             className="gap-2 bg-brand-blue hover:bg-brand-blue/90"
-            onClick={() => navigate("/magazyn/nowy-produkt")}
+            onClick={() => window.location.hash = "#/magazyn/nowy-produkt"}
           >
             <Plus className="icon-balanced" />
             <span>Dodaj produkt</span>
@@ -296,7 +296,7 @@ export function InventoryList() {
                           <Button 
                             variant="link" 
                             className="p-0 h-auto font-medium text-left"
-                            onClick={() => navigate(`/magazyn/produkt/${item.id}`)}
+                            onClick={() => window.location.hash = `#/magazyn/produkt/${item.id}`}
                           >
                             {item.name}
                             {item.hasConversations && (
@@ -338,7 +338,7 @@ export function InventoryList() {
                           <Button 
                             variant="ghost" 
                             size="icon"
-                            onClick={() => navigate(`/magazyn/edytuj/${item.id}`)}
+                            onClick={() => window.location.hash = `#/magazyn/edytuj/${item.id}`}
                             title="Edytuj produkt"
                           >
                             <Edit className="icon-balanced" />
