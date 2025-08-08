@@ -225,7 +225,7 @@ export function InventoryDetail({ inventoryId }: InventoryDetailProps) {
                   <p className="font-medium">{productDetails.location}</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Cena jednostkowa</p>
+                  <p className="text-muted-foreground">Cena zakupowa</p>
                   <p className="font-medium">{productDetails.price.toFixed(2)} zł / {productDetails.unit}</p>
                 </div>
               </div>
@@ -245,13 +245,7 @@ export function InventoryDetail({ inventoryId }: InventoryDetailProps) {
                     </div>
                   )}
                 </div>
-                <div className="bg-muted/30 p-3 rounded-md flex-1 flex flex-col items-center">
-                  <p className="text-muted-foreground text-sm">Minimalny poziom</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-medium">{productDetails.minLevel}</span>
-                    <span className="text-sm">{productDetails.unit}</span>
-                  </div>
-                </div>
+                {/* Minimalny poziom ukryty zgodnie z ustaleniami */}
                 <div className="bg-muted/30 p-3 rounded-md flex-1 flex flex-col items-center">
                   <p className="text-muted-foreground text-sm">Wartość</p>
                   <div className="flex items-baseline gap-1">

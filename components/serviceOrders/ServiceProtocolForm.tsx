@@ -298,10 +298,21 @@ export function ServiceProtocolForm({ protocolId }: ServiceProtocolFormProps) {
             <Button
               variant="outline"
               className="gap-2"
-              onClick={handlePrint}
+              type="button"
+              onClick={() => {
+                const sanitized = (protocolData.number + " - " + (protocolData.client || "")).slice(0, 30).replace(/\s+/g, " ");
+                const filename = `${sanitized}.pdf`;
+                const blob = new Blob([""], { type: "application/pdf" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
             >
-              <Printer className="size-4" />
-              <span>Drukuj</span>
+              <Download className="size-4" />
+              <span>Pobierz</span>
             </Button>
           )}
         </div>

@@ -114,7 +114,8 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="partNumber" className="required">Numer katalogowy</Label>
+                    {/* Numer katalogowy – ukryty zgodnie z ustaleniami */}
+                    <Label htmlFor="partNumber" className="hidden">Numer katalogowy</Label>
                     <Input 
                       id="partNumber" 
                       value={partNumber} 
@@ -143,7 +144,7 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="price" className="required">Cena jednostkowa (zł)</Label>
+                    <Label htmlFor="price" className="required">Cena zakupowa (zł)</Label>
                     <Input 
                       id="price" 
                       type="number" 
@@ -183,6 +184,10 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
                       placeholder="Np. Regał A, półka 1"
                       required
                     />
+                  <div className="flex items-center gap-2 pt-1">
+                    <Checkbox id="clientStock" />
+                    <Label htmlFor="clientStock">Wykorzystane z magazynu klienta</Label>
+                  </div>
                   </div>
                 </div>
                 
@@ -208,20 +213,8 @@ export function InventoryForm({ isNew = false }: InventoryFormProps) {
                       )}
                     </div>
                     
-                    <div className="space-y-2">
-                      <Label htmlFor="minLevel">Minimalny poziom ({unit})</Label>
-                      <Input 
-                        id="minLevel" 
-                        type="number" 
-                        min="0" 
-                        step="0.01"
-                        value={minLevel} 
-                        onChange={(e) => setMinLevel(e.target.value)}
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Minimalna ilość, poniżej której produkt będzie oznaczony jako "niski stan"
-                      </p>
-                    </div>
+                    {/* Minimalny poziom – ukryty w UI zgodnie z ustaleniami */}
+                    <input type="hidden" value={minLevel} readOnly />
                   </div>
                   
                   <div className="flex items-center space-x-2">

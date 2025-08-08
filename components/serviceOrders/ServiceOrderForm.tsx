@@ -75,7 +75,7 @@ export function ServiceOrderForm({ orderId, isNew = false }: ServiceOrderFormPro
   const [plannedDate, setPlannedDate] = useState<Date>(new Date());
   const [clientId, setClientId] = useState("");
   const [serviceType, setServiceType] = useState("maintenance");
-  const [priority, setPriority] = useState("normal");
+  // Priorytet usunięty zgodnie z ustaleniami – system kieruje się datą realizacji
   const [status, setStatus] = useState("new");
   const [technicianId, setTechnicianId] = useState("");
   const [selectedItems, setSelectedItems] = useState<InventoryItem[]>([]);
@@ -351,20 +351,7 @@ export function ServiceOrderForm({ orderId, isNew = false }: ServiceOrderFormPro
                   </Select>
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="priority">Priorytet</Label>
-                  <Select value={priority} onValueChange={setPriority}>
-                    <SelectTrigger id="priority">
-                      <SelectValue placeholder="Wybierz priorytet" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">Niski</SelectItem>
-                      <SelectItem value="normal">Normalny</SelectItem>
-                      <SelectItem value="high">Wysoki</SelectItem>
-                      <SelectItem value="urgent">Pilny</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                {/* Priorytet usunięty – kierujemy się datą realizacji */}
                 
                 <div className="space-y-2">
                   <Label htmlFor="status">Status</Label>
@@ -547,6 +534,23 @@ export function ServiceOrderForm({ orderId, isNew = false }: ServiceOrderFormPro
                 
                 {/* Services Tab */}
                 <TabsContent value="services" className="space-y-4">
+                  {/* Pole ręczne: Robocizna */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="space-y-2 sm:col-span-1">
+                      <Label htmlFor="laborCost">Robocizna (zł)</Label>
+                      <Input
+                        id="laborCost"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={(selectedServices.reduce((s, x) => s, 0) as number) as any}
+                        onChange={() => { /* w wersji makietowej nie liczymy */ }}
+                      />
+                      <p className="text-xs text-muted-foreground">Ręcznie wpisywana wartość zgodnie z ustaleniami.</p>
+                    </div>
+                  </div>
+
                   <div className="flex justify-end">
                     <Popover>
                       <PopoverTrigger asChild>

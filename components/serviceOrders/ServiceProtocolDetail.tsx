@@ -255,10 +255,20 @@ export function ServiceProtocolDetail({ protocolId }: ServiceProtocolDetailProps
           <Button 
             variant="outline" 
             size="icon"
-            onClick={handlePrint}
-            title="Drukuj protokół"
+            title="Pobierz protokół"
+            onClick={() => {
+              const sanitized = (protocolData.number + " - " + protocolData.technicianNotes.slice(0, 30)).replace(/\s+/g, " ");
+              const filename = `${sanitized}.pdf`;
+              const blob = new Blob([""], { type: "application/pdf" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = filename;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
           >
-            <Printer className="size-4" />
+            <Download className="size-4" />
           </Button>
           
           <Button 
