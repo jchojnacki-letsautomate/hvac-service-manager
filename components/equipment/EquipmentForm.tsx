@@ -6,7 +6,7 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { ArrowLeft, Building2, Calendar, MapPin, Plus, Wrench, InfoIcon, UploadCloud, QrCode, Save } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Switch } from "../ui/switch";
 import { Checkbox } from "../ui/checkbox";
@@ -32,9 +32,14 @@ interface MaintenanceTask {
   description: string;
 }
 
-export function EquipmentForm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface EquipmentFormProps {
+  equipmentId?: string;
+}
+
+export function EquipmentForm({ equipmentId }: EquipmentFormProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = equipmentId;
   const [activeTab, setActiveTab] = useState("general");
   const [equipmentType, setEquipmentType] = useState("");
   const [manufacturer, setManufacturer] = useState("");
@@ -171,20 +176,20 @@ export function EquipmentForm() {
         description: "Zmiany zostały zapisane pomyślnie.",
         duration: 3000
       });
-      navigate(`/urzadzenia/${id}`);
+      window.location.hash = `#/urzadzenia/${id}`;
     } else {
       toast.success("Nowe urządzenie zostało dodane", {
         description: "Urządzenie zostało dodane do bazy danych.",
         duration: 3000
       });
-      navigate("/urzadzenia");
+              window.location.hash = "#/urzadzenia";
     }
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => isEditMode ? navigate(`/urzadzenia/${id}`) : navigate("/urzadzenia")}>
+                    <Button variant="outline" size="icon" onClick={() => isEditMode ? window.location.hash = `#/urzadzenia/${id}` : window.location.hash = "#/urzadzenia"}>
           <ArrowLeft className="size-4" />
         </Button>
         <h1>{isEditMode ? "Edytuj informacje o urządzeniu" : "Dodaj nowe urządzenie"}</h1>
@@ -657,7 +662,7 @@ export function EquipmentForm() {
             <Button 
               variant="outline" 
               type="button" 
-              onClick={() => isEditMode ? navigate(`/urzadzenia/${id}`) : navigate("/urzadzenia")}
+              onClick={() => isEditMode ? window.location.hash = `#/urzadzenia/${id}` : window.location.hash = "#/urzadzenia"}
             >
               Anuluj
             </Button>

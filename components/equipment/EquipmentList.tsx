@@ -13,7 +13,7 @@ import {
   Building2, MapPin, AlertTriangle, CheckCircle
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { Badge } from "../ui/badge";
 
 type EquipmentStatus = "operational" | "warning" | "critical" | "maintenance" | "offline";
@@ -37,7 +37,7 @@ interface Equipment {
 
 export function EquipmentList() {
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
   
   // Przykładowe dane
   const equipmentList: Equipment[] = [
@@ -189,14 +189,14 @@ export function EquipmentList() {
           <Button 
             variant="outline"
             className="gap-2"
-            onClick={() => navigate("/urzadzenia/import")}
+            onClick={() => window.location.hash = "#/urzadzenia/import"}
           >
             <ArrowUpDown className="size-4" />
             <span>Import</span>
           </Button>
           <Button 
             className="gap-2"
-            onClick={() => navigate("/urzadzenia/nowe")}
+            onClick={() => window.location.hash = "#/urzadzenia/nowe"}
           >
             <Plus className="size-4" />
             <span>Dodaj urządzenie</span>
@@ -264,7 +264,7 @@ export function EquipmentList() {
                   </TableRow>
                 ) : (
                   filteredEquipment.map((equipment) => (
-                    <TableRow key={equipment.id} className="cursor-pointer hover:bg-muted/50" onClick={() => navigate(`/urzadzenia/${equipment.id}`)}>
+                    <TableRow key={equipment.id} className="cursor-pointer hover:bg-muted/50" onClick={() => window.location.hash = `#/urzadzenia/${equipment.id}`}>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {getStatusIcon(equipment.status)}

@@ -6,7 +6,7 @@ import {
   ArrowLeft, CheckCircle, Settings, Building2, MapPin, Calendar, Wrench, 
   FileText, Clock, MessageCircle, Pencil, Plus, Save, X, Link2, Upload 
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom"; // Removed - using hash routing
 import { Badge } from "../ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
@@ -38,9 +38,14 @@ interface RelatedEquipment {
   name: string;
 }
 
-export function EquipmentProfile() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+interface EquipmentProfileProps {
+  equipmentId?: string;
+}
+
+export function EquipmentProfile({ equipmentId }: EquipmentProfileProps) {
+  // const { id } = useParams(); // Removed - using hash routing
+  // const navigate = useNavigate(); // Removed - using hash routing
+  const id = equipmentId;
   
   // State for edit mode
   const [isEditing, setIsEditing] = useState(false);
@@ -169,7 +174,7 @@ export function EquipmentProfile() {
       location: equipment.location
     }));
     
-    navigate('/zlecenia/nowe');
+    window.location.hash = '#/zlecenia/nowe';
   };
   
   const handleSaveChanges = () => {
@@ -217,7 +222,7 @@ export function EquipmentProfile() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={() => navigate("/urzadzenia")}>
+                    <Button variant="outline" size="icon" onClick={() => window.location.hash = "#/urzadzenia"}>
           <ArrowLeft className="icon-balanced" />
         </Button>
         <h1>{equipment.name}</h1>
@@ -226,7 +231,7 @@ export function EquipmentProfile() {
             <Button 
               variant="outline" 
               className="gap-2"
-              onClick={() => navigate(`/konwersacje?equipmentId=${equipment.id}`)}
+                              onClick={() => window.location.hash = `#/konwersacje?equipmentId=${equipment.id}`}
             >
               <MessageCircle className="icon-balanced" />
               <span className="hidden sm:inline">Konwersacje</span>
@@ -453,7 +458,7 @@ export function EquipmentProfile() {
                 variant="outline" 
                 size="sm"
                 className="gap-2 button-balanced"
-                onClick={() => navigate(`/zlecenia/nowe`)}
+                onClick={() => window.location.hash = `#/zlecenia/nowe`}
               >
                 <Wrench className="icon-balanced" />
                 <span>Zaplanuj serwis</span>
@@ -477,7 +482,7 @@ export function EquipmentProfile() {
                         <TableCell className="font-medium">{record.type}</TableCell>
                         <TableCell>{record.technician}</TableCell>
                         <TableCell>
-                          <Button variant="link" className="p-0 h-auto" onClick={() => navigate(`/zlecenia/${record.id}`)}>
+                          <Button variant="link" className="p-0 h-auto" onClick={() => window.location.hash = `#/zlecenia/${record.id}`}>
                             {record.orderNumber}
                           </Button>
                         </TableCell>
@@ -563,7 +568,7 @@ export function EquipmentProfile() {
                         <Settings className="icon-balanced text-muted-foreground" />
                         <span>{relatedEq.name}</span>
                       </div>
-                      <Button variant="ghost" size="sm" onClick={() => navigate(`/urzadzenia/${relatedEq.id}`)}>
+                      <Button variant="ghost" size="sm" onClick={() => window.location.hash = `#/urzadzenia/${relatedEq.id}`}>
                         Podgląd
                       </Button>
                     </div>
