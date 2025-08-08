@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { FileText, Info } from "lucide-react";
 import { DocumentSummary } from "./DocumentSummary";
 import { DocumentLinkDialog } from "./DocumentLinkDialog";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed - using hash routing
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -40,7 +40,7 @@ export function DocumentPreviewDialog({
     documentNumber.includes("124") ? "verified" : 
     documentNumber.includes("123") ? "pending" : "error"
   );
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed - using hash routing
 
   // Przykładowe dane dokumentu - w rzeczywistej aplikacji pobierane z API
   const documentData = {
@@ -82,7 +82,7 @@ export function DocumentPreviewDialog({
         
       case "serviceOrder":
         // Przekierowanie do zlecenia serwisowego
-        navigate(`/zlecenia/${id}`);
+        window.location.hash = `#/zlecenia/${id}`;
         break;
         
       default:

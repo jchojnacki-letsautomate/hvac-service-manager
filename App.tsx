@@ -15,6 +15,8 @@ import { ClientProfile } from "./components/clients/ClientProfile";
 import { EquipmentList } from "./components/equipment/EquipmentList";
 import { EquipmentProfile } from "./components/equipment/EquipmentProfile";
 import { DocumentsList } from "./components/documents/DocumentsList";
+import { DocumentUploadForm } from "./components/documents/DocumentUploadForm";
+import { DocumentVerificationForm } from "./components/documents/DocumentVerificationForm";
 import { InventoryList } from "./components/inventory/InventoryList";
 import { InventoryDetail } from "./components/inventory/InventoryDetail";
 import { ConversationsList } from "./components/conversations/ConversationsList";
@@ -200,6 +202,13 @@ export default function App() {
         return <EquipmentList />;
       
       case "/dokumenty":
+        if (currentRoute === "/dokumenty/dodaj") {
+          return <DocumentUploadForm />;
+        }
+        if (currentRoute.startsWith("/dokumenty/weryfikacja/")) {
+          const documentId = currentRoute.split("/")[3];
+          return <DocumentVerificationForm />;
+        }
         return <DocumentsList />;
       
       case "/magazyn":
