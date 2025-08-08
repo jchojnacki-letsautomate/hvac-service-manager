@@ -27,6 +27,7 @@ import { Input } from "../../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../ui/dialog";
 
 interface UserData {
   id: string;
@@ -42,6 +43,9 @@ interface UserData {
 export function AccessControlSettings() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [roleFilter, setRoleFilter] = React.useState("all");
+  const [usersState, setUsersState] = React.useState<UserData[]>(users);
+  const [showAddUser, setShowAddUser] = React.useState(false);
+  const [newUser, setNewUser] = React.useState({ name: "", email: "", role: "Technik", department: "Serwis" });
   
   const users: UserData[] = [
     {
@@ -105,7 +109,7 @@ export function AccessControlSettings() {
     { id: "viewer", name: "Podgląd", permissions: 2 }
   ];
   
-  const filteredUsers = users.filter(user => {
+  const filteredUsers = usersState.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role.toLowerCase() === roleFilter.toLowerCase();
@@ -115,6 +119,63 @@ export function AccessControlSettings() {
   
   return (
     <div className="space-y-6">
+      <Dialog open={showAddUser} onOpenChange={setShowAddUser}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Dodaj użytkownika</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 pt-2">
+            <div className="space-y-1">
+              <Label>Imię i nazwisko</Label>
+              <Input value={newUser.name} onChange={e=>setNewUser(v=>({...v,name:e.target.value}))} placeholder="np. Jan Kowalski" />
+            </div>
+            <div className="space-y-1">
+              <Label>Email</Label>
+              <Input type="email" value={newUser.email} onChange={e=>setNewUser(v=>({...v,email:e.target.value}))} placeholder="np. j.kowalski@firma.pl" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label>Rola</Label>
+                <Select value={newUser.role} onValueChange={v=>setNewUser(u=>({...u,role:v}))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz rolę" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {roles.map(r=> (
+                      <SelectItem key={r.id} value={r.name}>{r.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1">
+                <Label>Dział</Label>
+                <Select value={newUser.department} onValueChange={v=>setNewUser(u=>({...u,department:v}))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz dział" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Serwis">Serwis</SelectItem>
+                    <SelectItem value="IT">IT</SelectItem>
+                    <SelectItem value="Finanse">Finanse</SelectItem>
+                    <SelectItem value="Biuro">Biuro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={()=>setShowAddUser(false)}>Anuluj</Button>
+            <Button onClick={()=>{
+              const id = String(Date.now());
+              setUsersState(prev=>[
+                ...prev,
+                { id, name:newUser.name, email:newUser.email, role:newUser.role, department:newUser.department, status:"active", lastLogin:"-", avatar:"" }
+              ]);
+              setShowAddUser(false);
+            }}>Dodaj</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       {/* Podsumowanie uprawnień */}
       <div className="space-y-3">
         <h3 className="flex items-center gap-2">
@@ -171,7 +232,7 @@ export function AccessControlSettings() {
             Zarządzanie użytkownikami
           </h3>
           
-          <Button className="gap-2 bg-brand-blue hover:bg-brand-blue/90">
+          <Button className="gap-2 bg-brand-blue hover:bg-brand-blue/90" onClick={() => setShowAddUser(true)}>
             <UserPlus className="size-4" />
             <span>Dodaj użytkownika</span>
           </Button>
@@ -262,10 +323,10 @@ export function AccessControlSettings() {
                     <TableCell className="text-sm">{user.lastLogin}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" onClick={() => alert("Edycja roli w wersji demo") }>
                           <Edit className="size-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive">
+                        <Button variant="ghost" size="icon" className="text-destructive" onClick={() => setUsersState(prev => prev.filter(u => u.id !== user.id))}>
                           <Trash2 className="size-4" />
                         </Button>
                       </div>
@@ -326,10 +387,7 @@ export function AccessControlSettings() {
                     <Wrench className="size-4 text-muted-foreground" />
                     <span className="text-sm">Zlecenia serwisowe</span>
                   </div>
-                  <Switch 
-                    checked={role.id !== "viewer"} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={role.id !== "viewer"} className="data-[state=checked]:bg-brand-blue" />
                 </div>
                 
                 <div className="flex justify-between items-center">
@@ -337,10 +395,7 @@ export function AccessControlSettings() {
                     <Building2 className="size-4 text-muted-foreground" />
                     <span className="text-sm">Klienci</span>
                   </div>
-                  <Switch 
-                    checked={role.id !== "viewer" && role.id !== "technician"} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={role.id !== "viewer" && role.id !== "technician"} className="data-[state=checked]:bg-brand-blue" />
                 </div>
                 
                 <div className="flex justify-between items-center">
@@ -348,10 +403,7 @@ export function AccessControlSettings() {
                     <Package className="size-4 text-muted-foreground" />
                     <span className="text-sm">Magazyn</span>
                   </div>
-                  <Switch 
-                    checked={["admin", "manager", "accountant"].includes(role.id)} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={["admin", "manager", "accountant"].includes(role.id)} className="data-[state=checked]:bg-brand-blue" />
                 </div>
                 
                 <div className="flex justify-between items-center">
@@ -359,10 +411,7 @@ export function AccessControlSettings() {
                     <FileText className="size-4 text-muted-foreground" />
                     <span className="text-sm">Dokumenty</span>
                   </div>
-                  <Switch 
-                    checked={["admin", "manager", "accountant"].includes(role.id)} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={["admin", "manager", "accountant"].includes(role.id)} className="data-[state=checked]:bg-brand-blue" />
                 </div>
                 
                 <div className="flex justify-between items-center">
@@ -370,10 +419,7 @@ export function AccessControlSettings() {
                     <MessageSquare className="size-4 text-muted-foreground" />
                     <span className="text-sm">Konwersacje</span>
                   </div>
-                  <Switch 
-                    checked={role.id !== "viewer"} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={role.id !== "viewer"} className="data-[state=checked]:bg-brand-blue" />
                 </div>
                 
                 <div className="flex justify-between items-center">
@@ -381,10 +427,7 @@ export function AccessControlSettings() {
                     <User className="size-4 text-muted-foreground" />
                     <span className="text-sm">Administracja</span>
                   </div>
-                  <Switch 
-                    checked={["admin"].includes(role.id)} 
-                    className="data-[state=checked]:bg-brand-blue"
-                  />
+                  <Switch defaultChecked={["admin"].includes(role.id)} className="data-[state=checked]:bg-brand-blue" />
                 </div>
               </div>
             </div>

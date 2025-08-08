@@ -181,11 +181,11 @@ export function ServiceProtocolForm({ protocolId }: ServiceProtocolFormProps) {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "draft":
-        return <Badge variant="outline" className="text-blue-600">Wersja robocza</Badge>;
+        return <Badge className="bg-blue-500/15 text-blue-800 border-blue-500/40">Wersja robocza</Badge>;
       case "pending":
-        return <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Oczekujący</Badge>;
+        return <Badge className="bg-amber-500/20 text-amber-800 border-amber-500/40">Oczekujący</Badge>;
       case "completed":
-        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Zatwierdzony</Badge>;
+        return <Badge className="bg-emerald-500/15 text-emerald-800 border-emerald-500/40">Zatwierdzony</Badge>;
       case "rejected":
         return <Badge variant="destructive">Odrzucony</Badge>;
       default:

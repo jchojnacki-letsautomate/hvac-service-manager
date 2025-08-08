@@ -143,14 +143,14 @@ export function DocumentsList() {
   const getStatusBadge = (status: DocumentStatus) => {
     switch (status) {
       case "verified":
-        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Zweryfikowany</Badge>;
+        return <Badge className="bg-emerald-500/15 text-emerald-800 border-emerald-500/40">Zweryfikowany</Badge>;
       case "error":
         return <Badge variant="destructive">Wymaga weryfikacji</Badge>;
       case "closed":
-        return <Badge className="bg-brand-blue text-white hover:bg-brand-blue/90">Zamknięty</Badge>;
+        return <Badge className="bg-brand-blue text-white">Zamknięty</Badge>;
       case "pending":
       default:
-        return <Badge variant="outline" className="text-amber-600">Przetwarzanie</Badge>;
+        return <Badge className="bg-amber-500/20 text-amber-800 border-amber-500/40">Przetwarzanie</Badge>;
     }
   };
 

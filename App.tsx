@@ -14,6 +14,7 @@ import { ClientsList } from "./components/clients/ClientsList";
 import { ClientProfile } from "./components/clients/ClientProfile";
 import { EquipmentList } from "./components/equipment/EquipmentList";
 import { EquipmentProfile } from "./components/equipment/EquipmentProfile";
+import { EquipmentForm } from "./components/equipment/EquipmentForm";
 import { DocumentsList } from "./components/documents/DocumentsList";
 import { DocumentUploadForm } from "./components/documents/DocumentUploadForm";
 import { DocumentVerificationForm } from "./components/documents/DocumentVerificationForm";
@@ -196,6 +197,9 @@ export default function App() {
         return <ClientsList />;
       
       case "/urzadzenia":
+        if (currentRoute === "/urzadzenia/nowe") {
+          return <EquipmentForm />;
+        }
         if (routeParams.id) {
           return <EquipmentProfile equipmentId={routeParams.id} />;
         }
@@ -264,12 +268,16 @@ export default function App() {
       </div>
       
       <Toaster 
-        position="top-right" 
+        position="top-right"
+        richColors
+        closeButton
         toastOptions={{
+          duration: 3500,
           style: {
             background: 'var(--card)',
             color: 'var(--card-foreground)',
-            border: '1px solid var(--border)'
+            border: '1px solid var(--border)',
+            zIndex: 100000,
           }
         }}
       />

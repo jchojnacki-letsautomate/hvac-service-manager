@@ -99,14 +99,28 @@ export function ServiceProtocolsList() {
     }
   ];
 
+  const exportProtocolsToCsv = (rows: ServiceProtocol[]) => {
+    const header = ["Numer","Data","Klient","Typ","Status","Technik","Liczba urządzeń","Nr zlecenia"]; 
+    const body = rows.map(p => [p.number,p.date,p.client,p.type,p.status,p.technician,p.equipmentCount,p.serviceOrderNumber]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "protokoly.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getStatusBadge = (status: ProtocolStatus) => {
     switch (status) {
       case "draft":
-        return <Badge variant="outline" className="text-blue-600">Wersja robocza</Badge>;
+        return <Badge className="bg-blue-500/15 text-blue-800 border-blue-500/40">Wersja robocza</Badge>;
       case "pending":
-        return <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Oczekujący</Badge>;
+        return <Badge className="bg-amber-500/20 text-amber-800 border-amber-500/40">Oczekujący</Badge>;
       case "completed":
-        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Zatwierdzony</Badge>;
+        return <Badge className="bg-emerald-500/15 text-emerald-800 border-emerald-500/40">Zatwierdzony</Badge>;
       case "rejected":
         return <Badge variant="destructive">Odrzucony</Badge>;
       default:
@@ -204,8 +218,16 @@ export function ServiceProtocolsList() {
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry protokołów")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportProtocolsToCsv(filteredProtocols)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>

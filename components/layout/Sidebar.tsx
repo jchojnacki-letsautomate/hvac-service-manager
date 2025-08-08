@@ -57,6 +57,11 @@ export function Sidebar({
 
   const navigationItems = [
     {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: BarChart3,
+    },
+    {
       name: "Zlecenia",
       path: "/zlecenia",
       icon: ClipboardList,

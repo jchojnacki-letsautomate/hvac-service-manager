@@ -191,11 +191,11 @@ export function InventoryReservation({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Oczekująca</Badge>;
+        return <Badge className="bg-amber-500/20 text-amber-800 border-amber-500/40">Oczekująca</Badge>;
       case "confirmed":
-        return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Potwierdzona</Badge>;
+        return <Badge className="bg-blue-500/15 text-blue-800 border-blue-500/40">Potwierdzona</Badge>;
       case "fulfilled":
-        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Zrealizowana</Badge>;
+        return <Badge className="bg-emerald-500/15 text-emerald-800 border-emerald-500/40">Zrealizowana</Badge>;
       case "cancelled":
         return <Badge variant="outline" className="text-muted-foreground">Anulowana</Badge>;
       default:

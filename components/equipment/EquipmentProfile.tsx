@@ -150,13 +150,13 @@ export function EquipmentProfile({ equipmentId }: EquipmentProfileProps) {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "operational":
-        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Sprawny</Badge>;
+        return <Badge className="bg-emerald-500/15 text-emerald-800 border-emerald-500/40">Sprawny</Badge>;
       case "warning":
-        return <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Uwaga</Badge>;
+        return <Badge className="bg-amber-500/20 text-amber-800 border-amber-500/40">Uwaga</Badge>;
       case "critical":
         return <Badge variant="destructive">Awaria</Badge>;
       case "maintenance":
-        return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Serwis</Badge>;
+        return <Badge className="bg-blue-500/15 text-blue-800 border-blue-500/40">Serwis</Badge>;
       case "offline":
         return <Badge variant="outline" className="text-muted-foreground">Nieaktywny</Badge>;
       default:
