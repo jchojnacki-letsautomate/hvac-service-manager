@@ -1,0 +1,460 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 15px; /* Zredukowano z 16px na 15px */
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #0e1c47;
+  --primary-foreground: #ffffff;
+  --secondary: #ff8c00;
+  --secondary-foreground: #ffffff;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #ff8c00;
+  --accent-foreground: #ffffff;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #0e1c47;
+  --chart-1: #0e1c47;
+  --chart-2: #2a3a6a;
+  --chart-3: #465a94;
+  --chart-4: #ff8c00;
+  --chart-5: #ffab4d;
+  --radius: 0.7rem; /* Zredukowano z 0.75rem na 0.7rem */
+  --sidebar: #0e1c47;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff8c00;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(255, 140, 0, 0.1);
+  --sidebar-accent-foreground: #ff8c00;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #ff8c00;
+  --sidebar-width: 14rem;        /* 224px - pełna szerokość */
+  --sidebar-width-collapsed: 4rem; /* 64px - zwinięta szerokość */
+  
+  /* Dostosowane rozmiary czcionek - zredukowane */
+  --text-xs: 0.8125rem;    /* Było 0.875rem */
+  --text-sm: 0.9375rem;    /* Było 1rem */
+  --text-base: 1.0625rem;  /* Było 1.125rem */
+  --text-lg: 1.1875rem;    /* Było 1.25rem */
+  --text-xl: 1.375rem;     /* Było 1.5rem */
+  --text-2xl: 1.625rem;    /* Było 1.75rem */
+  --text-3xl: 1.875rem;    /* Było 2rem */
+  
+  /* Dostosowane zmienne dla padding i margin */
+  --space-1: 0.3125rem;    /* Było 0.375rem */
+  --space-2: 0.625rem;     /* Było 0.75rem */
+  --space-3: 0.9375rem;    /* Było 1rem */
+  --space-4: 1.375rem;     /* Było 1.5rem */
+  --space-5: 1.875rem;     /* Było 2rem */
+  --space-6: 2.375rem;     /* Było 2.5rem */
+}
+
+.dark {
+  --background: #0e1c47;
+  --foreground: #ffffff;
+  --card: #162854;
+  --card-foreground: #ffffff;
+  --popover: #162854;
+  --popover-foreground: #ffffff;
+  --primary: #ff8c00;
+  --primary-foreground: #ffffff;
+  --secondary: #2a3a6a;
+  --secondary-foreground: #ffffff;
+  --muted: #2a3a6a;
+  --muted-foreground: #b3b3c3;
+  --accent: #2a3a6a;
+  --accent-foreground: #ff8c00;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: #2a3a6a;
+  --input: #2a3a6a;
+  --ring: #ff8c00;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #ff8c00;
+  --chart-2: #ffab4d;
+  --chart-3: #ffc285;
+  --chart-4: #2a3a6a;
+  --chart-5: #465a94;
+  --sidebar: #162854;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff8c00;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(255, 140, 0, 0.15);
+  --sidebar-accent-foreground: #ff8c00;
+  --sidebar-border: #2a3a6a;
+  --sidebar-ring: #ff8c00;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    margin-bottom: var(--space-3);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    margin-bottom: var(--space-2);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    margin-bottom: var(--space-2);
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    margin-bottom: var(--space-1);
+  }
+
+  p {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.4;
+    margin-bottom: var(--space-2);
+  }
+
+  label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    margin-bottom: var(--space-1);
+  }
+
+  button {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    padding: var(--space-1) var(--space-3);
+  }
+
+  input {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.4;
+    padding: var(--space-2);
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Optymalizacja dla układu z paskiem bocznym */
+@media (min-width: 768px) {
+  body {
+    overflow: hidden; /* Zapobiega przewijaniu całej strony */
+  }
+  
+  #root {
+    height: 100vh;
+    display: flex;
+  }
+}
+
+/* Custom brand color utility classes */
+.bg-brand-blue {
+  background-color: #0e1c47;
+}
+
+.text-brand-blue {
+  color: #0e1c47;
+}
+
+.bg-brand-orange {
+  background-color: #ff8c00;
+}
+
+.text-brand-orange {
+  color: #ff8c00;
+}
+
+.border-brand-blue {
+  border-color: #0e1c47;
+}
+
+.border-brand-orange {
+  border-color: #ff8c00;
+}
+
+.hover\:bg-brand-blue:hover {
+  background-color: #0e1c47;
+}
+
+.hover\:bg-brand-orange:hover {
+  background-color: #ff8c00;
+}
+
+.ring-brand-blue {
+  --tw-ring-color: #0e1c47;
+}
+
+.ring-brand-orange {
+  --tw-ring-color: #ff8c00;
+}
+
+.accent-brand-orange {
+  accent-color: #ff8c00;
+}
+
+/* Sidebar specific styles */
+.sidebar-item-active {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+  font-weight: var(--font-weight-medium);
+}
+
+.sidebar-fixed {
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 40;
+  width: var(--sidebar-width);
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar-fixed.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+/* Dopasuj główną treść do szerokości paska bocznego */
+.main-content {
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content.sidebar-expanded {
+  margin-left: var(--sidebar-width);
+}
+
+.main-content.sidebar-collapsed {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+@media (max-width: 768px) {
+  .sidebar-fixed {
+    position: absolute;
+    transform: translateX(-100%);
+    height: 100%;
+  }
+  
+  .sidebar-fixed.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Zmodyfikowane klasy dla ikon */
+.icon-md {
+  height: 1.375rem;
+  width: 1.375rem;
+}
+
+.icon-lg {
+  height: 1.625rem;
+  width: 1.625rem;
+}
+
+/* Dodany nowy rozmiar dla elementów menu bocznego */
+.h-4\.5 {
+  height: 1.125rem;
+}
+
+.w-4\.5 {
+  width: 1.125rem;
+}
+
+/* Zmodyfikowane klasy pomocnicze dla odstępów */
+.gap-wider {
+  gap: var(--space-3);
+}
+
+.p-larger {
+  padding: var(--space-3);
+}
+
+/* Dostosowane do mniejszych elementów */
+.size-larger {
+  --size: 2.25rem;
+  height: var(--size);
+  width: var(--size);
+}
+
+/* Zmodyfikowane style dla form kontrolek */
+.form-control-larger {
+  padding: var(--space-2) var(--space-3);
+  height: 2.75rem;
+}
+
+/* Zmodyfikowane style dla tabel */
+.table-cell-larger {
+  padding: var(--space-2) var(--space-3);
+}
+
+/* Nowe klasy dla zrównoważonych wielkości */
+.button-balanced {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.input-balanced {
+  height: 2.5rem;
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.card-balanced {
+  padding: var(--space-3);
+}
+
+.icon-balanced {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Dodatkowe klasy dla komponentów */
+.nav-item {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.dialog-content {
+  padding: var(--space-3);
+  max-width: 95vw;
+}
+
+.form-group {
+  margin-bottom: var(--space-3);
+}
+
+/* Klasy dla responsywności */
+.mobile-padding {
+  padding: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .mobile-padding {
+    padding: var(--space-3);
+  }
+}
+
+/* Niestandardowe stylizacje paska przewijania */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Dostosowanie rozmiaru kart */
+.card {
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Optymalizacja dla tabeli */
+.table {
+  font-size: var(--text-sm);
+}
+
+.table th {
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-2) var(--space-3);
+}
+
+.table td {
+  padding: var(--space-2) var(--space-3);
+}
