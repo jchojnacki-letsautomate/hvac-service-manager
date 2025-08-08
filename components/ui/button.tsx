@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Główny przycisk w kolorze marki z wysokim kontrastem
-        default: "bg-brand-blue text-white hover:bg-brand-blue/90",
+        // Główny przycisk w kolorze marki z cieniem (zgodnie z figmą)
+        default: "bg-brand-blue text-white hover:bg-brand-blue/90 shadow-sm",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        // Wyraźny kontur w kolorze marki; na hover zmienia się w przycisk wypełniony
+        // Wyraźny kontur w kolorze marki
         outline:
           "border border-brand-blue text-brand-blue bg-background hover:bg-brand-blue hover:text-white",
         // Drugi kolor marki
         secondary:
-          "bg-brand-orange text-white hover:bg-brand-orange/90",
+          "bg-brand-orange text-white hover:bg-brand-orange/90 shadow-sm",
         ghost:
           "text-foreground/80 hover:bg-muted/60",
         link: "text-primary underline-offset-4 hover:underline",
