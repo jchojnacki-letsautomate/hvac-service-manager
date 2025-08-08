@@ -144,6 +144,19 @@ export function OrdersList({
     return matchesSearch && matchesStatus;
   });
   
+  const exportOrdersToCsv = (rows: Order[]) => {
+    const header = ["Numer","Data","Klient","Opis","Status","Wartość"]; 
+    const body = rows.map(o => [o.number,o.date,o.client,o.description,o.orderStatus, o.value.toFixed(2)]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";")).join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "zamowienia.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  
   const handleOrderClick = (order: Order) => {
     onSelect(order.id);
   };
@@ -203,8 +216,16 @@ export function OrdersList({
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry zamówień")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => exportOrdersToCsv(filteredOrders)}
+                className="text-brand-blue border-brand-blue"
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>
