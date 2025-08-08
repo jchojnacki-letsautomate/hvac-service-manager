@@ -126,6 +126,20 @@ export function DocumentsList() {
     }
   ]);
 
+  const exportDocumentsToCsv = (rows: Document[]) => {
+    const header = ["Typ","Numer","Klient","Status","Data", "Powiązania"];
+    const body = rows.map(d => [d.type, d.documentNumber, d.client, d.status, d.uploadDate, d.relationships.map(r=>`${r.type}:${r.number}`).join("|")]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "dokumenty.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getStatusBadge = (status: DocumentStatus) => {
     switch (status) {
       case "verified":
@@ -386,8 +400,16 @@ export function DocumentsList() {
                 onClick={() => {
                   alert("Otworzono zaawansowane filtry dokumentów");
                 }}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportDocumentsToCsv(documents)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>

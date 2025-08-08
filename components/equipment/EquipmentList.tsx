@@ -181,6 +181,20 @@ export function EquipmentList() {
     equipment.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const exportEquipmentToCsv = (rows: Equipment[]) => {
+    const header = ["Nazwa","Typ","Model","SN","Klient","Lokalizacja","Status","Ost. serwis","Nast. serwis"]; 
+    const body = rows.map(e => [e.name,e.type,e.model,e.serialNumber,e.client.name,e.location,e.status,e.lastService,e.nextService]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "urzadzenia.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -237,8 +251,16 @@ export function EquipmentList() {
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry urządzeń")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportEquipmentToCsv(filteredEquipment)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>

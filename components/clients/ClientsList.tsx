@@ -108,6 +108,20 @@ export function ClientsList() {
     }
   ];
 
+  const exportClientsToCsv = (rows: Client[]) => {
+    const header = ["Nazwa","Typ","Telefon","Email","Adres","Urządzenia","Zlecenia"]; 
+    const body = rows.map(c => [c.name,c.type,c.phone,c.email,c.address,c.equipmentCount,c.serviceOrdersCount]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "klienci.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getClientTypeBadge = (type: string) => {
     switch (type) {
       case "business":
@@ -174,8 +188,16 @@ export function ClientsList() {
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry klientów")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportClientsToCsv(filteredClients)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>

@@ -132,6 +132,20 @@ export function InventoryList() {
     }
   ];
 
+  const exportInventoryToCsv = (rows: InventoryItem[]) => {
+    const header = ["Nazwa","Kategoria","Nr kat.","Lokalizacja","Jedn.","Ilość","Min","Cena","Status"]; 
+    const body = rows.map(i => [i.name,i.category,i.partNumber,i.location,i.unit,i.quantityAvailable,i.minLevel,i.price.toFixed(2),i.status]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "magazyn.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "ok":
@@ -242,8 +256,16 @@ export function InventoryList() {
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry magazynu")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="icon-balanced" />
+              </Button>
+              <Button
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportInventoryToCsv(filteredItems)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>

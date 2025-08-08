@@ -130,6 +130,20 @@ export function ServiceOrdersList({
     }
   ];
 
+  const exportToCsv = (rows: ServiceOrder[]) => {
+    const header = ["Numer","Data","Klient","Usługa","Status","Technik"];
+    const body = rows.map(o => [o.number,o.date,o.client,o.serviceType,o.status,o.technician]);
+    const csv = [header, ...body].map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(";"))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "zlecenia.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const getStatusBadge = (status: ServiceOrderStatus) => {
     switch (status) {
       case "new":
@@ -247,8 +261,16 @@ export function ServiceOrdersList({
                 variant="outline" 
                 size="icon"
                 onClick={() => alert("Otworzono zaawansowane filtry zleceń")}
+                className="text-brand-blue border-brand-blue"
               >
                 <Filter className="size-4" />
+              </Button>
+              <Button 
+                variant="outline"
+                className="text-brand-blue border-brand-blue"
+                onClick={() => exportToCsv(filteredOrders)}
+              >
+                Eksport CSV
               </Button>
             </div>
           </div>
